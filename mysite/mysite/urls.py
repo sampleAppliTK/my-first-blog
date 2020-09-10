@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include #　これを入れないとincludeが動かない（https://qiita.com/s-katsumata/items/c38788b6c56c107560d2）
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # ローカルだとhttp://127.0.0.1:8000/
+    # PythonAnywhereだとhttp://sampleapplitk.pythonanywhere.com/
+    # に来たリクエストは全てblog.urlsへリダイレクトするようになる
+    path('', include('blog.urls')),
+
 ]

@@ -1,14 +1,44 @@
-<div>
-    <h1><a href="/">Django Girls Blog</a></h1>
-</div>
+{% extends 'blog/base.html' %}
 
-{% for post in posts %}
-    <div>
-        <p>published: {{ post.published_date }}</p>
-        <h2><a href="">{{ post.title }}</a></h2>
-        <p>{{ post.text|linebreaksbr }}</p>
-    </div>
-{% endfor %}
+<!--
+blog/base.htmlを読み込む（親テンプレート継承）
+以下コメントから半角%を消して、全角％にしてる
+Djangoはコメントアウトしてても｛％ ~ ％｝で囲ったものはテンプレートとして認識するため
+
+テンプレートの共通部分は親テンプレートにまとめる
+
+{％ extends 'base.html' ％}は親テンプレートとしてbase.htmlを継承。
+このコードはコメントがあろうがとにかく一行目に無いと
+TemplateSyntaxError at /
+<ExtendsNode: extends 'blog/base.html'> must be the first tag in the template.
+
+{％ block ％}, {％ endblock ％}で領域を確保し、子テンプレートで該当ブロックを置き換える
+{％ block ％}にはデフォルト値を指定することも可能
+{{ block.super }}で親テンプレートのデフォルト値を参照可能
+-->
+
+<!--
+{％ block ％}, {％ endblock ％}は領域を確保するタグ
+子テンプレートでこのblock内のHTMLを置き換えることができる
+{％ block title ％}Django Boards{％ endblock ％}のようにデフォルト値を指定することもでき
+子テンプレートで何も設定されない場合はこのデフォルト値が使用される。
+
+このサンプルの場合、子テンプレートはpost_list.html
+base.htmlに{％ block content ％}{％ endblock ％}を記述
+記述した箇所に表示したいタグを以下に記載
+-->
+
+{% block content %}
+      {% for post in posts %}
+        <div class="post">
+          <div class="date">
+            <p>published: {{ post.published_date }}</p>
+          </div>
+          <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+          <p>{{ post.text|linebreaksbr }}</p>
+        </div>
+      {% endfor %}
+{% endblock %}
 <!--
 <html>
     <head>

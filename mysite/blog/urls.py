@@ -14,4 +14,7 @@ urlpatterns = [
     # http://127.0.0.1:8000/post/1/　タイトルをクリックしたときのリンクを生成
     # post_detail.html を読み込む。上記URLの場合　変数pkに 1 入れてから　post_detailメソッドを実行する
     path('post/<int:pk>/', views.post_detail, name='post_detail'),
+
+    path('post/new/', views.post_new, name='post_new'),
+    path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
 ]

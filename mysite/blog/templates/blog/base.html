@@ -9,6 +9,12 @@
   </head>
   <body>
       <div class="page-header">
+          <!-- 管理者ユーザーの場合、新規投稿ボタンを表示する。他のユーザーは新規投稿が出来ない -->
+          {% if user.is_authenticated %}
+            <!-- NoReverseMatch at / エラーが出たらurls.pyでpost_newメソッドを呼び出す事
+            AttributeErrorエラーが出たら views.pyでpost_newメソッドを定義 -->
+              <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+          {% endif %}
           <h1><a href="/">Django Girls Blog</a></h1>
       </div>
       <div class="content container">

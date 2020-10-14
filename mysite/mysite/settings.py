@@ -138,6 +138,7 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 """
 
+"""
 # DEBUGがTrueの場合、Django-Debug-Toolberに必要なメソッドと定数を設定する（このソースの26行目で設定）
 if DEBUG:
     def show_toolbar(request):
@@ -153,3 +154,4 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
         'SHOW_TOOLBAR_CALLBACK': show_toolbar,
     }
+"""

@@ -9,11 +9,17 @@
   </head>
   <body>
       <div class="page-header">
-          <!-- 管理者ユーザーの場合、新規投稿ボタンを表示する。他のユーザーは新規投稿が出来ない -->
+          <!-- ユーザーがログイン中の場合、新規投稿ボタンを表示する。未登録ユーザーは新規投稿が出来ない -->
           {% if user.is_authenticated %}
             <!-- NoReverseMatch at / エラーが出たらurls.pyでpost_newメソッドを呼び出す事
             AttributeErrorエラーが出たら views.pyでpost_newメソッドを定義 -->
               <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+              <!-- 下書き -->
+              <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
+              <p class="top-menu">Hello {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
+          {% else %}
+              <!-- ログインしてない場合、ログインボタンを表示する。 -->
+              <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
           {% endif %}
           <h1><a href="/">Django Girls Blog</a></h1>
       </div>

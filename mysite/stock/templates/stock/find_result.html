@@ -1,0 +1,27 @@
+{% extends 'stock/base.html' %}
+
+{% block content %}
+<form method="POST" action="{% url 'stock_reg' %}" class="post-form">
+    {% csrf_token %}
+    <h2>{{ web.stock_code }}</h2>
+
+    {% if web.existsCode %}
+      <h2>{{ web.company_name }}</h2>
+      <p>{{ web.industry_name }}</p>
+      <p>{{ web.per_decimal }}</p>
+      <p>{{ web.per_text }}</p>
+      <p>{{ web.pbr_decimal }}</p>
+      <p>{{ web.pbr_text }}</p>
+
+      {% if web.isRegistedCode %}
+        <h2>既に登録済みです</h2>
+      {% else %}
+        <input type="hidden" name="code" value="{{ web.stock_code }}">
+        <button type="submit" class="save btn btn-default">Save</button>
+      {% endif %}
+    {% else %}
+      <h2>該当する企業が存在しません</h2>
+    {% endif %}
+    <input type="button" style="width:60px; height:40px" VALUE="戻る" onClick="window.history.back ();">
+</form>
+{% endblock %}

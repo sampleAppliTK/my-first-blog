@@ -1,0 +1,53 @@
+{% extends 'stock/base.html' %}
+
+{% block content %}
+
+{% comment %}
+  {% for stock in stocks %}
+    <div class="stock">
+      <h2>{{ stock.code }}</h2>
+      <div class="date">
+        <p>created: {{ stock.created_date }}</p>
+      </div>
+    </div>
+    <a class="btn btn-default" href="{% url 'stock_remove' code=stock.code %}"><span class="glyphicon glyphicon-remove"></span></a>
+  {% endfor %}
+{% endcomment%}
+
+<a href="{% url 'post_list' %}" ><h2>Django girl Blogはこちらから</h2></a>
+
+{% if user.is_authenticated %}
+<!-- form as_pは、forms.pyで定義したStockFormの中身をpタグで囲ったfromタグを展開してくれる。カラムがテキストじゃないとうまく展開しないので今回はaction属性にリンクをベタ打ち -->
+<!-- csrf_tokenは、クロスサイトリクエストフォージェリ(CSRF) を防ぐためのモノ。フォームに危険なコードを埋め込む等の不正なリクエストを防ぐためのコード -->
+  <div class="stock code">
+    <form method="POST" action="{% url 'stock_find' %}" class="post-form">
+        {% csrf_token %}
+        <input type="tel" size="12" name="code" id="form-ticker-symbol" maxlength="4"/>
+        <button type="submit" class="save btn btn-default">Search</button>
+    </form>
+  </div>
+
+  <table>
+    <tr>
+      <th>コード</th><th>企業名</th><th>業種</th><th colspan="2">PER</th><th colspan="2">PBR</th><th>削除</th>
+    </tr>
+    {% for web in stock_detail_list %}
+      <tr>
+        <td>{{ web.stock_code }}</td>
+        <td>{{ web.company_name }}</td>
+        <td>{{ web.industry_name }}</td>
+        <td>{{ web.per_decimal }}</td>
+        <td>{{ web.per_text }}</td>
+        <td>{{ web.pbr_decimal }}</td>
+        <td>{{ web.pbr_text }}</td>
+        <td><a class="btn btn-default" href="{% url 'stock_remove' code=web.stock_code %}"><span class="glyphicon glyphicon-remove"></span></a></td>
+      </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <h2>右上の南京錠のマークからログインしてください</h2>
+  <p>ユーザー名：testguest</p>
+  <p>パスワード：guest1346</p>
+{% endif %}
+
+{% endblock %}

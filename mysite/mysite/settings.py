@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'dv9twv7vxf$=f)9fvd*zqz+x*e==hz26*hbx5z!-y#mg0wmu9s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
@@ -138,7 +138,6 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 """
 
-"""
 # DEBUGがTrueの場合、Django-Debug-Toolberに必要なメソッドと定数を設定する（このソースの26行目で設定）
 if DEBUG:
     def show_toolbar(request):
@@ -154,4 +153,3 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
         'SHOW_TOOLBAR_CALLBACK': show_toolbar,
     }
-"""
